@@ -1,5 +1,6 @@
 import requests
 import urllib.request
+import os
 from bs4 import BeautifulSoup
 
 if __name__=="__main__":
@@ -31,6 +32,18 @@ if __name__=="__main__":
         picLi = bs4.find('ul',id='product-gallery').find_all('li')
         for pic in picLi:
             imgList.append(pic.find('img')['src'])
-        print(title)
-        print(imgList)
+        count = 1
+        print("[INFO] 한글 상품명 : " + title)
+        for pic_url in imgList:
+            print("[INFO] " + str(count) + "번째 사진 다운로드 시작.")
+            # dirname = "./pics/" + str(code)
+            dirname = "./pics/"
+            if not os.path.exists(dirname):
+                os.makedirs(dirname)
+            fileurl = dirname + str(code.strip()) + "_" + str(count) + ".png"
+            urllib.request.urlretrieve(pic_url, fileurl)
+            #ws.write(j, 4 + count, os.getcwd() + fileurl[1:].replace('/', '\\'))
+            count += 1
+
+
 
