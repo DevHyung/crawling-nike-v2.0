@@ -6,9 +6,12 @@ if __name__ == "__main__":
     files = os.listdir('./')
     print(">>> 변환중...")
     for file in files:
-        im = Image.open('./'+file)
-        if not im.mode == 'RGB':
-            im = im.convert('RGB')
-            im.save('./'+file)
+        try:
+            im = Image.open('./'+file)
+            if not im.mode == 'RGB':
+                im = im.convert('RGB')
+                im.save('./'+file)
+        except:
+            pass
     print(">>> 변환완료")
     input("종료하시려면 아무키나 눌러주세요")
